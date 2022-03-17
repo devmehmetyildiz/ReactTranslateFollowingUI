@@ -1,0 +1,22 @@
+.mainboard{
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.bg{
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../../assets/images/carousel/banner_9.jpg");
+}
+
+.bg_logo{
+    justify-content: start;
+    height: 20%; 
+    margin: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+}
