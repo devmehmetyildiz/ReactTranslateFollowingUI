@@ -53,6 +53,17 @@ class App extends Component {
           isFullPageLayout: true
         })
         document.querySelector('.page-body-wrapper').classList.add('full-page-wrapper');
+     //   if(this.props.location.pathname=='/user-pages/Home')
+    //    {
+       //  console.log( document.querySelector('.container-fluid'))
+   //      document.querySelector('.container-fluid').classList.remove('container-fluid')
+   //      document.querySelector('.page-body-wrapper').classList.remove('page-body-wrapper')
+   //       document.querySelector('.container-scroller').classList.remove('container-scroller');
+   //       document.querySelector('.full-page-wrapper').classList.remove('full-page-wrapper')
+   //       document.querySelector('.main-panel').classList.remove('main-panel')
+  //       document.querySelector('.content-wrapper').classList.remove('content-wrapper')   
+    //    }
+    
         break;
       } else {
         this.setState({

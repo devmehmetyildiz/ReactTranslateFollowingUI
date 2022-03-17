@@ -27,7 +27,7 @@ export class Dropdowns extends Component {
                 <div className="template-demo">
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-primary" id="dropdownMenuButton1">
-                      Dropdown
+                      Dropdown 1
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
@@ -40,7 +40,7 @@ export class Dropdowns extends Component {
                   </Dropdown>
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-secondary" id="dropdownMenuButton2">
-                      Dropdown
+                      Dropdown 2
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
@@ -53,7 +53,7 @@ export class Dropdowns extends Component {
                   </Dropdown>
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-danger" id="dropdownMenuButton3">
-                      Dropdown
+                      Dropdown 3
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
@@ -66,7 +66,7 @@ export class Dropdowns extends Component {
                   </Dropdown>
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-warning" id="dropdownMenuButton4">
-                      Dropdown
+                      Dropdown 4
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
@@ -79,7 +79,7 @@ export class Dropdowns extends Component {
                   </Dropdown>
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-success" id="dropdownMenuButton5">
-                      Dropdown
+                      Dropdown 5
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
@@ -92,7 +92,7 @@ export class Dropdowns extends Component {
                   </Dropdown>
                   <Dropdown>
                     <Dropdown.Toggle variant="btn btn-info" id="dropdownMenuButton6">
-                      Dropdown
+                      Dropdown 6
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Header>Settings</Dropdown.Header>
