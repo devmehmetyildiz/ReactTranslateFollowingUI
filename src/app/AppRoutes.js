@@ -105,11 +105,7 @@ class AppRoutes extends Component {
       <Suspense fallback={<Spinner/>}>
         <Switch>
           <Route exact path="/dashboard" component={ Dashboard } />
-
-          
-
           <Route exact path="/widgets" component={ Widgets } />
-
           <Route exact path="/apps/kanban-board" component={ KanbanBoard } />
           <Route exact path="/apps/todo-list" component={ TodoList } />
           <Route exact path="/apps/todo-list-rtl" component={ TodoListRtl } />

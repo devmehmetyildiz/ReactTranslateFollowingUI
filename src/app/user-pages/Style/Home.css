@@ -1,0 +1,58 @@
+.mainboard {
+    background-image: url("./images/deneme1.webp");
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 100vh !important;
+    display: flex;
+    flex-direction: column;
+    
+}
+.space-md{
+    height: 250px;
+}
+.selectmodel {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    max-height: 50px;
+}
+.selecmodelbtn {
+    height: 40px;
+    width: 170px;
+    padding: 2px;
+    margin: 3px;
+}
+
+.selecmodeldropdown {
+    height: 40px;
+    width: 270px;
+    padding: 2px;
+    margin: 3px;
+    text-align: start;
+}
+
+
+.services{
+    height: auto!important;
+    width: 100% !important;
+    bottom: -20px;
+}
+
+.services .container {
+    border-radius: 10px !important;
+}
+
+.services span{
+color: black;
+}
+
+.box:first-child{
+    border-top-left-radius:15px;
+    border-bottom-left-radius:15px;
+}
+
+.box:last-child{
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+}
