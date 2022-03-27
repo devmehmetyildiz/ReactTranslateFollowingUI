@@ -1,0 +1,13 @@
+.registerform{
+width: 75% !important;
+}
+
+.signupbtn{
+    width: 50% !important;  
+}
+
+.signuprow{
+    justify-content: center !important;
+    align-items: center !important;
+    display: flex;
+}
