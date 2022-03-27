@@ -4,7 +4,6 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import axios from 'axios';
 import { useHistory } from "react-router-dom"
-import './Dashboard.css'
 import { Redirect } from 'react-router-dom';
 const { SearchBar } = Search;
 
