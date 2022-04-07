@@ -1,8 +1,4 @@
-export const ActionTypes = {
-    SET_STOCKS : "SET_STOCKS",
-    SELECTED_STOCKS : "SELECTED_STOCKS",
-    REMOVE_SELECTED_STOCKS : "REMOVE_SELECTED_STOCKS",
-}
+import { ActionTypes } from "../constant/action-type"
 
 export const setStocks = (stocks) => {
     return {

@@ -13,15 +13,7 @@ export class StockListining extends Component {
     constructor(props) {
         super(props)
         const currentitem = [{
-            id: 0,
-            stokkod: '',
-            stokadı: '',
-            miktar: 0,
-            birim: '',
-            alışfiyat: 0.0,
-            satışfiyat: 0.0,
-            kdv: '',
-            İskonto: 0
+          
         }]
         const { SearchBar } = Search;
         const defaultSorted = [{

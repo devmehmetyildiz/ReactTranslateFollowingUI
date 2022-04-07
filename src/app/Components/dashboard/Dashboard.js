@@ -292,6 +292,8 @@ function Dashboard() {
     })
     .catch(error => {
       if (error.response.status == '401') {
+        console.log('error.response.status: ', error.response.status);
+
         console.log('döndürüom')
         history.push("/Login")
       }

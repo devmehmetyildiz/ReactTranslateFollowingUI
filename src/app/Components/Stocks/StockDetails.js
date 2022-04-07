@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 export class StockDetails extends Component {
     constructor(props) {
         super(props)
-        const currentitem = {            
+        const currentitem = {
             id: 0,
             stokkod: '',
             stokadı: '',
@@ -20,8 +20,8 @@ export class StockDetails extends Component {
         }
         this.state = { currentitem };
     }
-    componentDidMount() {      
-       this.getStock()      
+    componentDidMount() {
+        this.getStock()
     }
     componentWillUnmount() {
         this.props.removeselectedStock(this.state.currentitem)
@@ -33,16 +33,16 @@ export class StockDetails extends Component {
         this.props.selectedStock(this.state.currentitem);
     }
     getStock = async () => {
-        const response = await axios.get('http://localhost:18598/api/Stok/GetSelectedStock?ID=' + this.props.match.params.StockId,        
+        const response = await axios.get('http://localhost:18598/api/Stok/GetSelectedStock?ID=' + this.props.match.params.StockId,
             { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
             .catch(error => {
-                if (error.response.status == '401') {                    
+                if (error.response.status == '401') {
                     this.props.history.push("/Login")
                 }
             })
         if (response != undefined) {
             this.props.selectedStock(response.data);
-            this.setState({currentitem:this.props.stock})
+            this.setState({ currentitem: this.props.stock })
         }
     };
     render() {
@@ -57,79 +57,119 @@ export class StockDetails extends Component {
                                     <div className='row'>
                                         <div className="col-6">
                                             <div className="form-group">
-                                                <label>İsim</label>
+                                                <label>Dil Kodu</label>
                                                 <div className="input-group">
                                                     <div className="input-group-prepend bg-transparent">
                                                         <span className="input-group-text bg-transparent border-right-0">
                                                             <i className="mdi mdi-account-outline text-primary"></i>
                                                         </span>
                                                     </div>
-                                                    <input id='stokadı' type="text" className="form-control form-control-lg border-left-0" placeholder="İsim"
-                                                        value={this.state.currentitem.stokadı || ' '} onChange={this.handleChangeInput}
+                                                    <input id='stokkod' type="text" className="form-control form-control-lg border-left-0" placeholder="Dil Kodu"
+                                                        value={this.state.currentitem.stokkod || ' '} onChange={this.handleChangeInput}
                                                     ></input>
                                                 </div>
                                             </div>
+                                            </div>
+                                            <div className="col-6">
                                             <div className="form-group">
-                                                <label>Kullanıcı Adı</label>
+                                                <label>Dil Adı</label>
                                                 <div className="input-group">
                                                     <div className="input-group-prepend bg-transparent">
                                                         <span className="input-group-text bg-transparent border-right-0">
                                                             <i className="mdi mdi-email-outline text-primary"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" className="form-control form-control-lg border-left-0" placeholder="Kullanıcı Adı"
-                                                    //   onChange={e => this.Kullanıcıadi = e.target.value}
+                                                    <input id='stokadı' type="text" className="form-control form-control-lg border-left-0" placeholder="Dil Adı"
+                                                        value={this.state.currentitem.stokadı || ' '} onChange={this.handleChangeInput}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className="col-6">
+                                            <div className="form-group">
+                                                <label>Miktar</label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend bg-transparent">
+                                                        <span className="input-group-text bg-transparent border-right-0">
+                                                            <i className="mdi mdi-account-outline text-primary"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input id='miktar' type="text" className="form-control form-control-lg border-left-0" placeholder="miktar"
+                                                        value={this.state.currentitem.miktar || ' '} onChange={this.handleChangeInput}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Birim</label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend bg-transparent">
+                                                        <span className="input-group-text bg-transparent border-right-0">
+                                                            <i className="mdi mdi-account-outline text-primary"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input id='birim' type="text" className="form-control form-control-lg border-left-0" placeholder="birim"
+                                                        value={this.state.currentitem.birim || ' '} onChange={this.handleChangeInput}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-6">
                                             <div className="form-group">
-                                                <label>Soyisim</label>
+                                                <label>satışfiyat</label>
                                                 <div className="input-group">
                                                     <div className="input-group-prepend bg-transparent">
                                                         <span className="input-group-text bg-transparent border-right-0">
                                                             <i className="mdi mdi-account-outline text-primary"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" className="form-control form-control-lg border-left-0" placeholder="Soyisim"
-                                                    //   onChange={e => this.Soyisim = e.target.value}
+                                                    <input id='satışfiyat' type="text" className="form-control form-control-lg border-left-0" placeholder="satışfiyat"
+                                                        value={this.state.currentitem.satışfiyat || ' '} onChange={this.handleChangeInput}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label>Email</label>
+                                                <label>kdv</label>
                                                 <div className="input-group">
                                                     <div className="input-group-prepend bg-transparent">
                                                         <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-email-outline text-primary"></i>
+                                                            <i className="mdi mdi-account-outline text-primary"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="email" className="form-control form-control-lg border-left-0" placeholder="Email"
-                                                    //  onChange={e => this.Mailadres = e.target.value}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='col-12'>
-                                            <div className="form-group">
-                                                <label>Password</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-lock-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="password" className="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password"
-                                                    //     onChange={e => this.Şifre = e.target.value}
+                                                    <input id='kdv' type="text" className="form-control form-control-lg border-left-0" placeholder="kdv"
+                                                        value={this.state.currentitem.kdv || ' '} onChange={this.handleChangeInput}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-4 mt-3 signuprow ">
+                                    <div className='row'>
+                                        <div className="col-12">
+                                            <div className="form-group">
+                                                <label>İskonto</label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend bg-transparent">
+                                                        <span className="input-group-text bg-transparent border-right-0">
+                                                            <i className="mdi mdi-account-outline text-primary"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input id='İskonto' type="text" className="form-control form-control-lg border-left-0" placeholder="İskonto"
+                                                        value={this.state.currentitem.İskonto || ' '} onChange={this.handleChangeInput}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='row'>
+                                    <div className="col-6 mt-3 signuprow ">
                                         <button className="btn btn-block btn-primary btn-lg signupbtn font-weight-medium auth-form-btn" >SIGN UP</button>
                                     </div>
+                                    <div className="col-6 mt-3 signuprow ">
+                                        <button className="btn btn-block btn-primary btn-lg signupbtn font-weight-medium auth-form-btn" >SIGN UP</button>
+                                    </div>
+                                    </div>
+                                   
                                 </form>
                             </div>
                         </div>

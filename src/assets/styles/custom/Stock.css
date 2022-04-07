@@ -5,3 +5,14 @@
 .form-group label{
     color: rgb(255, 255, 255) !important;
 }
+
+.signuprow{
+    display: flex !important;
+    justify-content: end !important;
+    align-items: flex-end !important;
+}
+
+
+.signupbtn{
+   width: 190px !important;
+}
