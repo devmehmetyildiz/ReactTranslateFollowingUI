@@ -4,6 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import axios from 'axios';
+import axiosInstance from '../../Utils/axios';
 import { setStocks } from '../../Redux/actions/stockActions';
 import { withRouter } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ export class StockListining extends Component {
     constructor(props) {
         super(props)
         const currentitem = [{
-          
+
         }]
         const { SearchBar } = Search;
         const defaultSorted = [{
@@ -58,16 +59,34 @@ export class StockListining extends Component {
                 text: 'İskonto',
                 sort: true
             }, {
-                dataField: 'action',
-                text: 'Action',
+                dataField: 'update',
+                text: 'Güncelle',
                 sort: false,
                 formatter: () => {
                     return (
                         <div>
                             <button className="btn btn-dark">
-
-                                <i className="mdi mdi-eye-outline text-primary"></i>View
-                            </button>
+                                <i  className="mdi mdi-tooltip-edit text-primary"></i>Güncelle
+                            </button>                           
+                        </div>
+                    );
+                },
+                events: {
+                    onClick: (e, column, columnIndex, row, rowIndex) => {
+                        this.props.history.push('/Stock/' + row.id)
+                    }
+                }
+            }
+            , {
+                dataField: 'delete',
+                text: 'Sil',
+                sort: false,
+                formatter: () => {
+                    return (
+                        <div>
+                            <button className="btn btn-dark">
+                                <i  className="mdi mdi-trash-can text-primary"></i>Sil
+                            </button>                           
                         </div>
                     );
                 },
@@ -89,13 +108,19 @@ export class StockListining extends Component {
     }
 
     getStocks = async () => {
-        const response = await axios.get('http://localhost:18598/api/Stok/GetStokAll',
-            { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-            .catch(error => {
-                if (error.response.status == '401') {
-                    this.props.history.push("/Login")
-                }
-            })
+
+
+
+        const response = await axios({
+            method: 'get',
+            data: this.state.currentitem,
+            url: process.env.REACT_APP_BACKEND_URL + '/Stok/GetStokAll',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        }).catch(error => {
+            if (error.response.status == '401') {
+                this.props.history.push("/Login")
+            }
+        })
         if (response != undefined) {
             this.props.setStocks(response.data);
             this.setState({ currentitem: this.props.allStocks.stocks })

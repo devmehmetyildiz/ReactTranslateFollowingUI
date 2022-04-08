@@ -12,7 +12,18 @@
     align-items: flex-end !important;
 }
 
+.gobackrow{
+    display: flex !important;
+    justify-content: start !important;
+    align-items: flex-end !important;
+}
+
 
 .signupbtn{
    width: 190px !important;
+   height: 20px;
+   justify-content: center;
+   align-items: center;
+   display: flex !important;
+   background-color: cornflowerblue !important;
 }
