@@ -1,0 +1,64 @@
+$content-color: white;
+$input-label-color: black;
+$content-bg:#191c24;
+$purple:            #6a008a;
+
+.addform{
+    width: 80% !important
+    
+}
+.form-group label{
+    color:$content-color !important;
+    font-size: medium !important;
+    
+}
+
+.content{
+    background-color: $content-bg;
+}
+
+.content h1,h2,h3,h4,h5,h6,label{
+    color: $content-color !important;
+}
+
+.signuprow{
+    display: flex !important;
+    justify-content: end !important;
+    align-items: flex-end !important;
+}
+
+.gobackrow{
+    display: flex !important;
+    justify-content: start !important;
+    align-items: flex-end !important;
+}
+
+
+.signupbtn{
+   width: 190px !important;
+   height: 20px;
+   justify-content: center;
+   align-items: center;
+   display: flex !important;
+   background-color: cornflowerblue !important;
+}
+
+.inputborder{
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    border-width: 0px !important;
+
+    
+}
+.inputborder  span{
+   
+    color: $input-label-color !important;
+    border-width: 0px !important;
+    
+}
+
+.inputborder  input{
+    border-width: 0px !important;
+    color: $input-label-color !important;
+    
+}

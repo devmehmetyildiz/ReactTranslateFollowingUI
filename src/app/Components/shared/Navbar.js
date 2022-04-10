@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { Trans } from 'react-i18next';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    console.log(props.items)
+  }
   toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
@@ -181,7 +185,7 @@ class Navbar extends Component {
               <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
                 <div className="navbar-profile">
                   <img className="img-xs rounded-circle" src={require('../../../assets/images/faces/face15.jpg')} alt="profile" />
-                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>Henry Klein</Trans></p>
+                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{this.props.items.kullanıcıadi}</Trans></p>
                   <i className="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </Dropdown.Toggle>

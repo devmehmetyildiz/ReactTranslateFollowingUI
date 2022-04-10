@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import axiosInstance from '../../Utils/axios';
 import axios from 'axios';
 import { selectedStock, removeselectedStock } from '../../Redux/actions/stockActions';
-import "../../../assets/styles/custom/Stock.css"
+import "../../../assets/styles/custom/Stock.scss"
 import { withRouter } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import InputItem from '../Common/input'
 export class StockDetails extends Component {
     constructor(props) {
         super(props)
@@ -31,13 +32,15 @@ export class StockDetails extends Component {
     handleChangeInput = (e) => {
         const newdata = { ...this.state.currentitem }
         newdata[e.target.id] = e.target.value
-        this.setState({ currentitem: newdata })
-        this.props.selectedStock(this.state.currentitem);
+        this.setState({ currentitem: newdata }, () => {
+            this.props.selectedStock(this.state.currentitem);
+        })
+      
     }
 
     handleonSubmit = (e) => {
-        e.preventDefault();      
-        this.updateStock();        
+        e.preventDefault();
+        this.updateStock();
     }
 
     goBack = () => {
@@ -52,8 +55,13 @@ export class StockDetails extends Component {
             url: process.env.REACT_APP_BACKEND_URL + '/Stok/UpdateStok',
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }).catch(error => {
-            console.log(error)
-            if (error.response.status == '401') {
+
+            if (error.response != undefined) {
+                if (error.response.status == '401') {
+                    this.props.history.push("/Login")
+                }
+            } else {
+                cogoToast.error('Veri Alınırken Hata Alındı', this.toastoptions)
                 this.props.history.push("/Login")
             }
         })
@@ -95,139 +103,99 @@ export class StockDetails extends Component {
     render() {
         return (
             <div>
-                <div className="d-flex align-items-stretch auth auth-img-bg h-100">
+                <div className="d-flex align-items-stretch auth auth-img-bg h-100 content">
                     <div className="row flex-grow">
                         <div className="col-lg-12 d-flex align-items-center justify-content-center">
                             <div className="auth-form-transparent text-left p-3 addform" >
-                                <h6 className="font-weight-light">Stock Update</h6>
+                                <h6 className="font-weight-light">Dil Güncelleme</h6>
                                 <form className="pt-3" onSubmit={this.handleonSubmit}>
                                     <div className='row'>
                                         <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Dil Kodu</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='stokkod' type="text" className="form-control form-control-lg border-left-0" placeholder="Dil Kodu"
-                                                        value={this.state.currentitem.stokkod || ' '} onChange={this.handleChangeInput}
-                                                    ></input>
-                                                </div>
-                                            </div>
+                                            <InputItem 
+                                            title="Dil Kodu"
+                                            itemid="stokkod" 
+                                            itemtype="text"
+                                            itemholder="Dil Kodu"
+                                            itemvalue={this.state.currentitem.stokkod || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Dil Adı</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-email-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='stokadı' type="text" className="form-control form-control-lg border-left-0" placeholder="Dil Adı"
-                                                        value={this.state.currentitem.stokadı || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                       
+                                             <InputItem 
+                                            title="Dil Adı"
+                                            itemid="stokadı" 
+                                            itemtype="text"
+                                            itemholder="Dil Adı"
+                                            itemvalue={this.state.currentitem.stokadı || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
                                     </div>
                                     <div className='row'>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Miktar</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='miktar' type="number" className="form-control form-control-lg border-left-0" placeholder="miktar"
-                                                        value={this.state.currentitem.miktar || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                         
+                                            <InputItem 
+                                            title="Miktar" 
+                                            itemid="miktar" 
+                                            itemtype="number"
+                                            itemholder="Miktar"
+                                            itemvalue={this.state.currentitem.miktar || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Birim</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='birim' type="text" className="form-control form-control-lg border-left-0" placeholder="birim"
-                                                        value={this.state.currentitem.birim || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                         
+                                            <InputItem 
+                                            title="Birim" 
+                                            itemid="birim" 
+                                            itemtype="text"
+                                            itemholder="Birim"
+                                            itemvalue={this.state.currentitem.birim || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
 
                                     </div>
                                     <div className='row'>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Alış Fiyatı</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='alışfiyat' type="number" className="form-control form-control-lg border-left-0" placeholder="alışfiyat"
-                                                        value={this.state.currentitem.alışfiyat || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                         
+                                            <InputItem 
+                                            title="Alış Fiyatı" 
+                                            itemid="alışfiyat" 
+                                            itemtype="number"
+                                            itemholder="Alış Fiyatı"
+                                            itemvalue={this.state.currentitem.alışfiyat || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Satış Fiyat</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='satışfiyat' type="number" className="form-control form-control-lg border-left-0" placeholder="satışfiyat"
-                                                        value={this.state.currentitem.satışfiyat || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                          
+                                            <InputItem 
+                                            title="Satış Fiyat" 
+                                            itemid="satışfiyat" 
+                                            itemtype="number"
+                                            itemholder="Satış Fiyat"
+                                            itemvalue={this.state.currentitem.satışfiyat || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
                                     </div>
                                     <div className='row'>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>İskonto</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='İskonto' type="number" className="form-control form-control-lg border-left-0" placeholder="İskonto"
-                                                        value={this.state.currentitem.İskonto || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                          
+                                            <InputItem 
+                                            title="İskonto" 
+                                            itemid="İskonto" 
+                                            itemtype="number"
+                                            itemholder="İskonto"
+                                            itemvalue={this.state.currentitem.İskonto || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
-                                        <div className="col-6">
-                                            <div className="form-group">
-                                                <label>Kdv</label>
-                                                <div className="input-group">
-                                                    <div className="input-group-prepend bg-transparent">
-                                                        <span className="input-group-text bg-transparent border-right-0">
-                                                            <i className="mdi mdi-account-outline text-primary"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input id='kdv' type="text" className="form-control form-control-lg border-left-0" placeholder="kdv"
-                                                        value={this.state.currentitem.kdv || ' '} onChange={this.handleChangeInput}
-                                                    />
-                                                </div>
-                                            </div>
+                                        <div className="col-6">                                          
+                                            <InputItem 
+                                            title="Kdv" 
+                                            itemid="kdv" 
+                                            itemtype="text"
+                                            itemholder="kdv"
+                                            itemvalue={this.state.currentitem.kdv || ' '}
+                                            itemchangefunc = {this.handleChangeInput}
+                                            ></InputItem>
                                         </div>
                                     </div>
 

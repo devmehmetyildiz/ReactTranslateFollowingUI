@@ -7,7 +7,7 @@ import axios from 'axios';
 import axiosInstance from '../../Utils/axios';
 import { setStocks } from '../../Redux/actions/stockActions';
 import { withRouter } from 'react-router-dom';
-
+import cogoToast from 'cogo-toast';
 
 export class StockListining extends Component {
 
@@ -66,8 +66,8 @@ export class StockListining extends Component {
                     return (
                         <div>
                             <button className="btn btn-dark">
-                                <i  className="mdi mdi-tooltip-edit text-primary"></i>Güncelle
-                            </button>                           
+                                <i className="mdi mdi-tooltip-edit text-primary"></i>Güncelle
+                            </button>
                         </div>
                     );
                 },
@@ -85,8 +85,8 @@ export class StockListining extends Component {
                     return (
                         <div>
                             <button className="btn btn-dark">
-                                <i  className="mdi mdi-trash-can text-primary"></i>Sil
-                            </button>                           
+                                <i className="mdi mdi-trash-can text-primary"></i>Sil
+                            </button>
                         </div>
                     );
                 },
@@ -108,16 +108,18 @@ export class StockListining extends Component {
     }
 
     getStocks = async () => {
-
-
-
         const response = await axios({
             method: 'get',
             data: this.state.currentitem,
             url: process.env.REACT_APP_BACKEND_URL + '/Stok/GetStokAll',
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }).catch(error => {
-            if (error.response.status == '401') {
+            if (error.response != undefined) {
+                if (error.response.status == '401') {
+                    this.props.history.push("/Login")
+                }
+            }else{
+                cogoToast.error('Veri Alınırken Hata Alındı', this.toastoptions)
                 this.props.history.push("/Login")
             }
         })
@@ -134,7 +136,7 @@ export class StockListining extends Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-body">
-                                <h4 className="card-title">Stock Table</h4>
+                                <h4 className="card-title">Diller</h4>
                                 <div className="row">
                                     <div className="col-12">
                                         <ToolkitProvider
@@ -148,7 +150,7 @@ export class StockListining extends Component {
                                                 props => (
                                                     <div>
                                                         <div className="d-flex align-items-center">
-                                                            <p className="mb-2 mr-2">Search in table:</p>
+                                                            <p className="mb-2 mr-2">Arama Yap:</p>
                                                             <this.state.SearchBar {...props.searchProps} />
                                                         </div>
                                                         <BootstrapTable

@@ -8,14 +8,19 @@ import Footer from './Components/shared/Footer';
 
 
 class App extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    const currentitem = JSON.parse(localStorage.getItem('currentUser'))
+    this.state={ currentitem}
+
+  }
   componentDidMount() {
     this.onRouteChanged();
-    
+
   }
   render() {
-    let navbarComponent = !this.state.isFullPageLayout ? <Navbar /> : '';
-    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar /> : '';
+    let navbarComponent = !this.state.isFullPageLayout ? <Navbar items={this.state.currentitem}/> : '';
+    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar items={this.state.currentitem}/> : '';
     let footerComponent = !this.state.isFullPageLayout ? <Footer /> : '';
     return (
       <div className="container-scroller">
@@ -34,6 +39,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
+   
     if (this.props.location !== prevProps.location) {
       this.onRouteChanged();
     }
@@ -41,17 +47,18 @@ class App extends Component {
 
   onRouteChanged() {
     console.log("ROUTE CHANGED");
-
+    const currentitem = JSON.parse(localStorage.getItem('currentUser'))
+    this.setState({ currentitem : currentitem})
     const body = document.querySelector('body');
 
     window.scrollTo(0, 0);
-    const fullPageLayoutRoutes = ['/Login', '/Register','/error-pages/error-404', '/error-pages/error-500'];
+    const fullPageLayoutRoutes = ['/Login', '/Register', '/error-pages/error-404', '/error-pages/error-500'];
     for (let i = 0; i < fullPageLayoutRoutes.length; i++) {
       if (this.props.location.pathname === fullPageLayoutRoutes[i]) {
         this.setState({
           isFullPageLayout: true
         })
-        document.querySelector('.page-body-wrapper').classList.add('full-page-wrapper');      
+        document.querySelector('.page-body-wrapper').classList.add('full-page-wrapper');
         break;
       } else {
         this.setState({

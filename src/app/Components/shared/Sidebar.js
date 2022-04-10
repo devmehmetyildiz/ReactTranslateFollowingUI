@@ -2,61 +2,72 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Collapse, Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
+import cogoToast from 'cogo-toast';
+import { connect } from 'react-redux'
+import { setUser } from '../../Redux/actions/loginActions'
 
-class Sidebar extends Component {
-
-  state = {};
+export class Sidebar extends Component {
+  state = {}
+  constructor(props) {
+    super(props)
+    console.log(props.items)
+  }
 
   toggleMenuState(menuState) {
     if (this.state[menuState]) {
-      this.setState({[menuState] : false});
-    } else if(Object.keys(this.state).length === 0) {
-      this.setState({[menuState] : true});
+      this.setState({ [menuState]: false });
+    } else if (Object.keys(this.state).length === 0) {
+      this.setState({ [menuState]: true });
     } else {
       Object.keys(this.state).forEach(i => {
-        this.setState({[i]: false});
+        this.setState({ [i]: false });
       });
-      this.setState({[menuState] : true}); 
+      this.setState({ [menuState]: true });
     }
   }
+
+
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.onRouteChanged();
     }
+
   }
+
+
 
   onRouteChanged() {
     document.querySelector('#sidebar').classList.remove('active');
     Object.keys(this.state).forEach(i => {
-      this.setState({[i]: false});
+      this.setState({ [i]: false });
     });
 
     const dropdownPaths = [
-      {path:'/apps', state: 'appsMenuOpen'},
-      {path:'/basic-ui', state: 'basicUiMenuOpen'},
-      {path:'/advanced-ui', state: 'advancedUiMenuOpen'},
-      {path:'/form-elements', state: 'formElementsMenuOpen'},
-      {path:'/tables', state: 'tablesMenuOpen'},
-      {path:'/maps', state: 'mapsMenuOpen'},
-      {path:'/icons', state: 'iconsMenuOpen'},
-      {path:'/charts', state: 'chartsMenuOpen'},
-      {path:'/user-pages', state: 'userPagesMenuOpen'},
-      {path:'/error-pages', state: 'errorPagesMenuOpen'},
-      {path:'/general-pages', state: 'generalPagesMenuOpen'},
-      {path:'/ecommerce', state: 'ecommercePagesMenuOpen'},
-      {path:'/editors', state: 'editorsMenuOpen'},
+      { path: '/apps', state: 'appsMenuOpen' },
+      { path: '/basic-ui', state: 'basicUiMenuOpen' },
+      { path: '/advanced-ui', state: 'advancedUiMenuOpen' },
+      { path: '/form-elements', state: 'formElementsMenuOpen' },
+      { path: '/tables', state: 'tablesMenuOpen' },
+      { path: '/maps', state: 'mapsMenuOpen' },
+      { path: '/icons', state: 'iconsMenuOpen' },
+      { path: '/charts', state: 'chartsMenuOpen' },
+      { path: '/user-pages', state: 'userPagesMenuOpen' },
+      { path: '/error-pages', state: 'errorPagesMenuOpen' },
+      { path: '/general-pages', state: 'generalPagesMenuOpen' },
+      { path: '/ecommerce', state: 'ecommercePagesMenuOpen' },
+      { path: '/editors', state: 'editorsMenuOpen' },
     ];
 
     dropdownPaths.forEach((obj => {
       if (this.isPathActive(obj.path)) {
-        this.setState({[obj.state] : true})
+        this.setState({ [obj.state]: true })
       }
     }));
- 
+
   }
 
-  render () {
+  render() {
     return (
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -72,7 +83,7 @@ class Sidebar extends Component {
                   <span className="count bg-success"></span>
                 </div>
                 <div className="profile-name">
-                  <h5 className="mb-0 font-weight-normal"><Trans>Henry Klein</Trans></h5>
+                  <h5 className="mb-0 font-weight-normal"><Trans>{this.props.items.İsim + ' ' +this.props.items.soyisim}</Trans>  </h5>
                   <span><Trans>Gold Member</Trans></span>
                 </div>
               </div>
@@ -81,7 +92,7 @@ class Sidebar extends Component {
                   <i className="mdi mdi-dots-vertical"></i>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="sidebar-dropdown preview-list">
-                  <a href="!#" className="dropdown-item preview-item" onClick={evt =>evt.preventDefault()}>
+                  <a href="!#" className="dropdown-item preview-item" onClick={evt => evt.preventDefault()}>
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
                         <i className="mdi mdi-settings text-primary"></i>
@@ -92,7 +103,7 @@ class Sidebar extends Component {
                     </div>
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a href="!#" className="dropdown-item preview-item" onClick={evt =>evt.preventDefault()}>
+                  <a href="!#" className="dropdown-item preview-item" onClick={evt => evt.preventDefault()}>
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
                         <i className="mdi mdi-onepassword  text-info"></i>
@@ -103,7 +114,7 @@ class Sidebar extends Component {
                     </div>
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a href="!#" className="dropdown-item preview-item" onClick={evt =>evt.preventDefault()}>
+                  <a href="!#" className="dropdown-item preview-item" onClick={evt => evt.preventDefault()}>
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
                         <i className="mdi mdi-calendar-today text-success"></i>
@@ -118,22 +129,22 @@ class Sidebar extends Component {
             </div>
           </li>
           <li className="nav-item nav-category">
-            <span className="nav-link"><Trans>Navigation</Trans></span>
+            <span className="nav-link"><Trans>Menüler</Trans></span>
           </li>
-          <li className={ this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          <li className={this.isPathActive('/dashboard') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <Link className="nav-link" to="/dashboard">
               <span className="menu-icon"><i className="mdi mdi-speedometer"></i></span>
               <span className="menu-title"><Trans>Dashboard</Trans></span>
             </Link>
-          </li>          
-          <li className={ this.isPathActive('/Stock') ? 'nav-item menu-items active' : 'nav-item menu-items' }>
+          </li>
+          <li className={this.isPathActive('/Stock') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <Link className="nav-link" to="/Stock">
               <span className="menu-icon"><i className="mdi mdi-speedometer"></i></span>
-              <span className="menu-title"><Trans>Stok</Trans></span>
+              <span className="menu-title"><Trans>Diller</Trans></span>
             </Link>
-          </li>          
+          </li>
 
-         
+
         </ul>
       </nav>
     );
@@ -144,18 +155,20 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
+
+
     this.onRouteChanged();
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu
     const body = document.querySelector('body');
     document.querySelectorAll('.sidebar .nav-item').forEach((el) => {
-      
-      el.addEventListener('mouseover', function() {
-        if(body.classList.contains('sidebar-icon-only')) {
+
+      el.addEventListener('mouseover', function () {
+        if (body.classList.contains('sidebar-icon-only')) {
           el.classList.add('hover-open');
         }
       });
-      el.addEventListener('mouseout', function() {
-        if(body.classList.contains('sidebar-icon-only')) {
+      el.addEventListener('mouseout', function () {
+        if (body.classList.contains('sidebar-icon-only')) {
           el.classList.remove('hover-open');
         }
       });
@@ -163,5 +176,8 @@ class Sidebar extends Component {
   }
 
 }
-
-export default withRouter(Sidebar);
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+const mapDispatchToProps = { setUser }
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sidebar))

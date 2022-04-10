@@ -286,7 +286,7 @@ function Dashboard() {
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
   };
 
-  axios.get('http://localhost:18598/api/MainScreen/GetMainAll', config)
+  /* axios.get('http://localhost:18598/api/MainScreen/GetMainAll', config)
     .then(res => {
       console.log(res)
     })
@@ -297,7 +297,7 @@ function Dashboard() {
         console.log('döndürüom')
         history.push("/Login")
       }
-    })
+    }) */
 
   return (
     <div>
